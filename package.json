@@ -1,0 +1,27 @@
+{
+  "name": "jslane",
+  "version": "1.0.0",
+  "description": "A basic JavaScript library",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify index.js --standalone jslane -o ./dist/jslane.js",
+    "checkCoverage": "node ./node_modules/nyc/bin/nyc.js check-coverage --lines 95 --functions 95 --branches 95",
+    "coverage": "node ./node_modules/nyc/bin/nyc.js --reporter=lcov npm test",
+    "deploy": "node ./node_modules/npm-run-all/bin/npm-run-all/index.js report coverage checkCoverage build minimize",
+    "format": "node ./node_modules/prettier/bin-prettier.js --single-quote --write ./tests**/*.js ./lib**/*.js",
+    "minimize": "uglifyjs ./dist/jslane.js -o ./dist/jslane.min.js --compress --mangle",
+    "report": "node ./node_modules/jshint/bin/jshint ./lib**/*.js ./tests**/*.js",
+    "test": "node ./node_modules/mocha/bin/mocha tests/**/*test.js --ui tdd"
+  },
+  "author": "Daniel Rodríguez",
+  "license": "GPL-3",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-deep-closeto": "^0.1.1",
+    "jshint": "^2.10.1",
+    "mocha": "^6.0.2",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^13.3.0",
+    "prettier": "^1.16.4"
+  }
+}
